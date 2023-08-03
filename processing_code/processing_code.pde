@@ -8,11 +8,11 @@ Button doorOpen, doorClose, dispense;
 
 
 void setup() {
-    size(700,400); //make our canvas 200 x 200 pixels big
+    size(360,800); //samrt phone size
     noStroke();
-    doorOpen = new Button(-100, "Open Door");
-    doorClose = new Button(0, "Close Door");
-    dispense = new Button(100, "Pour Food");
+    doorOpen = new Button(width/2, 100, width, 50, "Open Door");
+    doorClose = new Button(width/2, 200, width, 50, "Close Door");
+    dispense = new Button(width/2, 300, width, 50, "Pour Food");
     
     // On Windows machines, this generally opens COM1.
     // Open whatever port is the one you're using.
@@ -22,7 +22,7 @@ void setup() {
 }
 
 void draw() {
-    background(color(225));
+    background(color(255));
     doorOpen.update();
     doorClose.update();
     dispense.update();
