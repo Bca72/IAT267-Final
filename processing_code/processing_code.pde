@@ -11,8 +11,9 @@ final int DEV = 3;
 final int DISPENSED = 4;
 final int SCHEDULE = 5;
 
-
-int timer;
+boolean isActive = true;
+boolean startTimer = false;
+int timer, timer2, until;
 
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
 ImageButton upHour, downHour, upMin, downMin, confirmSchedule;
@@ -28,6 +29,8 @@ void setup() {
     state = 0;
     lastState = -1;
     timer = 0;
+    timer2 = 0;
+    until = 10;
     noStroke();
     
     // On Windows machines, this generally opens COM1.
@@ -77,7 +80,22 @@ void setup() {
 }
 
 void draw() {
-    surface.setTitle(str(timer));
+    surface.setTitle(str(timer) + ", " + str(timer2));
+    if(startTimer){
+        timer2++;
+        if(timer2 == 60) {
+            until--;
+            println("feeding in " + str(until));
+            timer2 = 0;
+        }
+        if(until == 0) {
+            myPort.write('1');
+            isActive = true;
+            state = DISPENSED;
+            startTimer = false;
+            until = 10;
+        }
+    }
     if ( myPort.available() > 0) {  // If data is available,
         val = myPort.readStringUntil('\n');         // read it and store it in val
     } 
@@ -487,7 +505,7 @@ void draw() {
 
 void mousePressed() {
     
-    
+    if(isActive) {
     
     if(state == START && signIn.mouseOver()) {
         state = HOME;
@@ -497,6 +515,11 @@ void mousePressed() {
         state = SCHEDULE;
         lastState = HOME;
      
+    }
+    else if(confirmSchedule.mouseOver()) {
+        println("feeding in " + str(until));
+        isActive = false;
+        startTimer = true;
     }
     
     if(state == HOME && options.mouseOver()) {
@@ -562,5 +585,6 @@ void mousePressed() {
     if(state == OPTIONS && home.mouseOver()) {
         state = HOME;
         lastState = OPTIONS;
+    }
     }
 }
