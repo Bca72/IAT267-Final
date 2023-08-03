@@ -3,7 +3,7 @@ import processing.serial.*;
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
 
-Button doorOpen, doorClose, dispense;
+
 ImageButton signIn, options, options2, feedCat, schedule, register;
 PImage logo, signUp, topBar;
 int state;
@@ -13,9 +13,6 @@ void setup() {
     size(420,800); //smart phone size
     state = 0;
     noStroke();
-    doorOpen = new Button(0, 100, width, 50, "Open Door");
-    doorClose = new Button(0, 200, width, 50, "Close Door");
-    dispense = new Button(0, 300, width, 50, "Pour Food");
     
     // On Windows machines, this generally opens COM1.
     // Open whatever port is the one you're using.
@@ -55,10 +52,10 @@ void draw() {
         options.update();
         feedCat.update();
         schedule.update();
-        register.update();
+        //register.update();
     }
     else if(state == 2) {
-        background(225);
+        background(235);
         image(topBar, 0, 0);
         options2.update();
         
