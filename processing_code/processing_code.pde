@@ -7,8 +7,10 @@ Button doorOpen, doorClose, dispense;
 
 int state;
 
+PImage logo, signIn, signUp;
+
 void setup() {
-    size(360,800); //samrt phone size
+    size(420,800); //smart phone size
     state = 0;
     noStroke();
     doorOpen = new Button(0, 100, width, 50, "Open Door");
@@ -20,6 +22,12 @@ void setup() {
     String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
     myPort = new Serial(this, portName, 9600);
     val = "-1";
+    
+    
+    logo = loadImage("imgs/logo.png");
+    logo.resize(400, 65);
+    signIn = loadImage("imgs/signIn.png");
+    signUp = loadImage("imgs/signUp.png");
 }
 
 void draw() {
@@ -28,7 +36,9 @@ void draw() {
     } 
     background(color(255));
        if(state == 0) {
-           
+           background(245);
+           image(logo, 10, 150);
+           image(signIn, 0, 200);
        }
        else if(state == 1) {
            doorOpen.update();
