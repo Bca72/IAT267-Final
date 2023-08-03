@@ -38,4 +38,8 @@ class ImageButton {
         }
     }
     
+    void setImage(String imgPath) {
+        img = loadImage(imgPath);   
+    }
+    
 }
