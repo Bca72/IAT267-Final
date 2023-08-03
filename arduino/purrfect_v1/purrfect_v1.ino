@@ -28,6 +28,9 @@ bool flapDoorsAreOpen = false;
 const unsigned long interval = 5000;
 unsigned long previousMillis = 0;
 
+//vars for processing input
+char incomingVal; // char recieved from processing port
+
 void setup() {
 
   // initialize serial communciation
@@ -42,6 +45,11 @@ void setup() {
 }
 
 void loop() {
+  //read incoming processing val
+  if(Serial.available()) {
+    incomingVal = Serial.read();
+  }
+  
 
   // Get the current time
   unsigned long currentMillis = millis();
@@ -83,8 +91,16 @@ void loop() {
 
   }
 
+  //if processing sends a 1
+  //open the doors and dispense food then close doors
+  if(incomingVal == '1') {
+    openFlapDoors();
+    dispenseFood();
+    closeFlapDoors();
+  }
+
   // short delay before looping 
-  delay(1000);
+  delay(100);
 }
 
 void openFlapDoors() {
