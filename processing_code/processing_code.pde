@@ -9,11 +9,13 @@ final int HOME = 1;
 final int OPTIONS = 2;
 final int DEV = 3;
 final int DISPENSED = 4;
+final int SCHEDULE = 5;
 
 
 int timer;
 
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
+ImageButton upHour, downHour, upMin, downMin;
 PImage logo, signUp, topBar, dispensed;
 int state, lastState;
 
@@ -50,6 +52,11 @@ void setup() {
     home = new ImageButton(35, 80, "imgs/Home.png");
     dispensed = loadImage("imgs/dispensed.png");
     dispensed.resize(400, 100);
+    
+    upHour = new ImageButton(5, 250, "imgs/up.png");
+    downHour = new ImageButton(5, 400, "imgs/down.png");
+    upMin = new ImageButton(210, 250, "imgs/up.png");
+    downMin = new ImageButton(210, 400, "imgs/down.png");
 }
 
 void draw() {
@@ -92,7 +99,7 @@ void draw() {
            
     }
     //home screen with dispensed text
-    else if (state == DISPENSED) {
+    else if(state == DISPENSED) {
         image(topBar, 0, 0);
         options.update();
         feedCat.update();
@@ -103,6 +110,15 @@ void draw() {
         if(timer == 60*5) {
             state = HOME; 
         }
+    }
+    //schedule dispense screen
+    else if(state == SCHEDULE) {
+        image(topBar, 0, 0);
+        options.update();   
+        upHour.update();
+        downHour.update();
+        upMin.update();
+        downMin.update();
     }
     
     
@@ -145,6 +161,21 @@ void mousePressed() {
         myPort.write('1');
     }
     
+    if(state == HOME && schedule.mouseOver()) {//pressed schedule
+        state = SCHEDULE;
+        lastState = HOME;
+        
+        
+    }
+    
+    if(state == SCHEDULE && options.mouseOver()) {
+        state = OPTIONS;
+        lastState = SCHEDULE;
+    }
+    else if(state == OPTIONS && lastState == SCHEDULE &&  options2.mouseOver()) {
+        state = SCHEDULE;
+        lastState = OPTIONS;
+    }
     
     
     
