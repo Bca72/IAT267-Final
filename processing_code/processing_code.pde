@@ -26,7 +26,7 @@ int hour, min;
 
 void setup() {
     size(420,800); //smart phone size
-    frameRate(30);
+    frameRate(10);
     state = 0;
     lastState = -1;
     timer = 0;
@@ -85,7 +85,7 @@ void draw() {
     
     if(startTimer){
         timer2++;
-        if(timer2 == 30) {
+        if(timer2 == 10) {
             until--;
             println("feeding in " + str(until));
             timer2 = 0;
@@ -146,7 +146,7 @@ void draw() {
         image(dispensed, 10, 650);
         //sets a time after 5 secs back to home
         timer++;
-        if(timer == 30*5) {
+        if(timer == 10*5) {
             state = HOME; 
         }
     }
