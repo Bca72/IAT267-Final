@@ -16,7 +16,7 @@ Servo rightDoorServo;
 Servo dispenserServo;
 
 // distance for sensor detection
-const int MAX_DISTANCE = 30;
+const int MAX_DISTANCE = 40;
 
 // NewPing instance
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
