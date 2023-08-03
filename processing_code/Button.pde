@@ -2,15 +2,11 @@ class Button {
 
     int rectX, rectY;      // Position of square button
     int rectWidth, rectHeight;     // Diameter of rect
-    color rectColor, textCol;
-    color rectHighlight;
-    boolean rectOver = false;
+    color rectColor;
     String label;
 
     Button(int x, int y, int buttonWidth, int buttonHeight, String label) {
-        rectColor = color(0);
-        textCol = color(255);
-        rectHighlight = color(55);
+        rectColor = color(225);
         rectX = x;
         rectY = y;
         rectWidth = buttonWidth;
@@ -19,29 +15,16 @@ class Button {
     }
     
     void update() {
-        if ( overRect(rectX, rectY, rectWidth, rectHeight) ) {
-            rectOver = true;
-        }
-        else {
-            rectOver = false;
-        }
-        
-        if (rectOver) {
-            fill(rectHighlight);
-        } 
-        else {
-            fill(rectColor);
-        }
         drawButton();
     
     }
     
     void drawButton(){
-        stroke(255);
+        fill(rectColor);
         rect(rectX, rectY, rectWidth, rectHeight);
         textSize(18);
-        fill(textCol);
-        text(label, rectX+ 5, rectY+rectWidth/2 + 5);
+        fill(0);
+        text(label, width/2, rectY);
     }
         
     

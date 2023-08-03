@@ -5,14 +5,15 @@ String val;     // Data received from the serial port
 
 Button doorOpen, doorClose, dispense;
 
-
+int state;
 
 void setup() {
     size(360,800); //samrt phone size
+    state = 0;
     noStroke();
-    doorOpen = new Button(width/2, 100, width, 50, "Open Door");
-    doorClose = new Button(width/2, 200, width, 50, "Close Door");
-    dispense = new Button(width/2, 300, width, 50, "Pour Food");
+    doorOpen = new Button(0, 100, width, 50, "Open Door");
+    doorClose = new Button(0, 200, width, 50, "Close Door");
+    dispense = new Button(0, 300, width, 50, "Pour Food");
     
     // On Windows machines, this generally opens COM1.
     // Open whatever port is the one you're using.
@@ -22,37 +23,21 @@ void setup() {
 }
 
 void draw() {
-    background(color(255));
-    doorOpen.update();
-    doorClose.update();
-    dispense.update();
-    
     if ( myPort.available() > 0) {  // If data is available,
         val = myPort.readStringUntil('\n');         // read it and store it in val
     } 
-    textSize(38);
-    fill(0);
-    text("Distance (Cm): " + val, 150, height/4);
+    background(color(255));
+       if(state == 0) {
+           
+       }
+       else if(state == 1) {
+           doorOpen.update();
+           doorClose.update();
+           dispense.update();
+       }
     
 }
 
 void mousePressed() {
-    if (doorOpen.rectOver) {
-        //do stuff
-        //textCol = color(0);
-        myPort.write('1');
-    }
-    else if (doorClose.rectOver) {
-        //do stuff
-        //textCol = color(0);
-        myPort.write('2');
-    }
-    else if (dispense.rectOver) {
-        //do stuff
-        //textCol = color(0);
-        myPort.write('3');
-    }
-    else {
-        myPort.write('0');   
-    }
+
 }
