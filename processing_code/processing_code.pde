@@ -17,7 +17,7 @@ int timer;
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
 ImageButton upHour, downHour, upMin, downMin, confirmSchedule;
 PImage logo, signUp, topBar, dispensed, colon;
-Pimage hour0, hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9;
+PImage hour0, hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9;
 int state, lastState;
 int hour, min;
 
@@ -140,13 +140,344 @@ void draw() {
         image(colon, 200, 270);
         switch(hour) {
             case 0:
-                hour1 = loadImage("imgs/0.png");
-                hour2 = loadImage("imgs/0.png");
-                image()
+                image(hour0, 10, 275);
+                image(hour0, 100, 275);
+                break;
+            case 1:
+                image(hour0, 10, 275);
+                image(hour1, 100, 275);
+                break;
+            case 2:
+                image(hour0, 10, 275);
+                image(hour2, 100, 275);
+                break;
+            case 3:
+                image(hour0, 10, 275);
+                image(hour3, 100, 275);
+                break;
+            case 4:
+                image(hour0, 10, 275);
+                image(hour4, 100, 275);
+                break;
+            case 5:
+                image(hour0, 10, 275);
+                image(hour5, 100, 275);
+                break;
+            case 6:
+                image(hour0, 10, 275);
+                image(hour6, 100, 275);
+                break;
+            case 7:
+                image(hour0, 10, 275);
+                image(hour7, 100, 275);
+                break;
+            case 8:
+                image(hour0, 10, 275);
+                image(hour8, 100, 275);
+                break;
+            case 9:
+                image(hour0, 10, 275);
+                image(hour9, 100, 275);
+                break;
+            case 10:
+                image(hour1, 10, 275);
+                image(hour0, 100, 275);
+                break;
+            case 11:
+                image(hour1, 10, 275);
+                image(hour1, 100, 275);
+                break;
+            case 12:
+                image(hour1, 10, 275);
+                image(hour2, 100, 275);
+                break;
+            case 13:
+                image(hour1, 10, 275);
+                image(hour3, 100, 275);
+                break;
+            case 14:
+                image(hour1, 10, 275);
+                image(hour4, 100, 275);
+                break;
+            case 15:
+                image(hour1, 10, 275);
+                image(hour5, 100, 275);
+                break;
+            case 16:
+                image(hour1, 10, 275);
+                image(hour6, 100, 275);
+                break;
+            case 17:
+                image(hour1, 10, 275);
+                image(hour7, 100, 275);
+                break;
+            case 18:
+                image(hour1, 10, 275);
+                image(hour8, 100, 275);
+                break;
+            case 19:
+                image(hour1, 10, 275);
+                image(hour9, 100, 275);
+                break;
+            case 20:
+                image(hour2, 10, 275);
+                image(hour0, 100, 275);
+                break;
+            case 21:
+                image(hour2, 10, 275);
+                image(hour1, 100, 275);
+                break;
+            case 22:
+                image(hour2, 10, 275);
+                image(hour2, 100, 275);
+                break;
+            case 23:
+                image(hour2, 10, 275);
+                image(hour3, 100, 275);
                 break;
         }
+        
         switch(min) {
-            
+            case 0:
+                image(hour0, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 1:
+                image(hour0, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 2:
+                image(hour0, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 3:
+                image(hour0, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 4:
+                image(hour0, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 5:
+                image(hour0, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 6:
+                image(hour0, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 7:
+                image(hour0, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 8:
+                image(hour0, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 9:
+                image(hour0, 225, 275);
+                image(hour9, 315, 275);
+                break;
+            case 10:
+                image(hour1, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 11:
+                image(hour1, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 12:
+                image(hour1, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 13:
+                image(hour1, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 14:
+                image(hour1, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 15:
+                image(hour1, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 16:
+                image(hour1, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 17:
+                image(hour1, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 18:
+                image(hour1, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 19:
+                image(hour1, 225, 275);
+                image(hour9, 315, 275);
+                break;
+            case 20:
+                image(hour2, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 21:
+                image(hour2, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 22:
+                image(hour2, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 23:
+                image(hour2, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 24:
+                image(hour2, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 25:
+                image(hour2, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 26:
+                image(hour2, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 27:
+                image(hour2, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 28:
+                image(hour2, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 29:
+                image(hour2, 225, 275);
+                image(hour9, 315, 275);
+                break;
+            case 30:
+                image(hour3, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 31:
+                image(hour3, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 32:
+                image(hour3, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 33:
+                image(hour3, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 34:
+                image(hour3, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 35:
+                image(hour3, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 36:
+                image(hour4, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 37:
+                image(hour3, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 38:
+                image(hour3, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 39:
+                image(hour3, 225, 275);
+                image(hour9, 315, 275);
+                break;
+            case 40:
+                image(hour4, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 41:
+                image(hour4, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 42:
+                image(hour4, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 43:
+                image(hour4, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 44:
+                image(hour4, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 45:
+                image(hour4, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 46:
+                image(hour4, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 47:
+                image(hour4, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 48:
+                image(hour4, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 49:
+                image(hour4, 225, 275);
+                image(hour9, 315, 275);
+                break;
+            case 50:
+                image(hour5, 225, 275);
+                image(hour0, 315, 275);
+                break;
+            case 51:
+                image(hour5, 225, 275);
+                image(hour1, 315, 275);
+                break;
+            case 52:
+                image(hour5, 225, 275);
+                image(hour2, 315, 275);
+                break;
+            case 53:
+                image(hour5, 225, 275);
+                image(hour3, 315, 275);
+                break;
+            case 54:
+                image(hour5, 225, 275);
+                image(hour4, 315, 275);
+                break;
+            case 55:
+                image(hour5, 225, 275);
+                image(hour5, 315, 275);
+                break;
+            case 56:
+                image(hour5, 225, 275);
+                image(hour6, 315, 275);
+                break;
+            case 57:
+                image(hour5, 225, 275);
+                image(hour7, 315, 275);
+                break;
+            case 58:
+                image(hour5, 225, 275);
+                image(hour8, 315, 275);
+                break;
+            case 59:
+                image(hour5, 225, 275);
+                image(hour9, 315, 275);
+                break;
         }
     }
     
