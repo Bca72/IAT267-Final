@@ -4,8 +4,8 @@ Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
 
 Button doorOpen, doorClose, dispense;
-ImageButton signIn;
-PImage logo, signUp;
+ImageButton signIn, options, options2;
+PImage logo, signUp, topBar;
 int state;
 
 
@@ -26,8 +26,12 @@ void setup() {
     
     logo = loadImage("imgs/logo.png");
     logo.resize(400, 65);
-    signIn = new ImageButton(70, 400, "imgs/signIn.png");
+    signIn = new ImageButton(35, 380, "imgs/signIn.png");
     signUp = loadImage("imgs/signUp.png");
+    
+    topBar = loadImage("imgs/topBar.png");
+    options = new ImageButton(width-75, 25, "imgs/more.png");
+    options2 = new ImageButton(width-75, 25, "imgs/more2.png");
 }
 
 void draw() {
@@ -36,21 +40,34 @@ void draw() {
     } 
     background(color(255));
        if(state == 0) {
-           background(255);
+           background(250);
            image(logo, 10, 150);
            signIn.update();
-           image(signUp, 70, 500);
+           image(signUp, 35, 500);
        }
        else if(state == 1) {
+           image(topBar, 0, 0);
+           options.update();
            doorOpen.update();
            doorClose.update();
            dispense.update();
+       }
+       else if(state == 2) {
+           image(topBar, 0, 0);
+           options2.update();
+           
        }
     
 }
 
 void mousePressed() {
     if(state == 0 && signIn.mouseOver()) {
-        
+        state = 1;
+    }
+    if(state == 1 && options.mouseOver()) {
+        state = 2;
+    }
+    else if(state == 2 && options2.mouseOver()) {
+        state = 1;
     }
 }
