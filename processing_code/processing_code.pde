@@ -7,15 +7,23 @@ String val;     // Data received from the serial port
 final int START = 0;
 final int HOME = 1;
 final int OPTIONS = 2;
+final int DEV = 3;
+final int DISPENSED = 4;
 
-ImageButton signIn, options, options2, feedCat, schedule, register, calibrate;
-PImage logo, signUp, topBar;
-int state;
+
+int timer;
+
+ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
+PImage logo, signUp, topBar, dispensed;
+int state, lastState;
 
 
 void setup() {
     size(420,800); //smart phone size
+    frameRate(60);
     state = 0;
+    lastState = -1;
+    timer = 0;
     noStroke();
     
     // On Windows machines, this generally opens COM1.
@@ -37,10 +45,14 @@ void setup() {
     schedule = new ImageButton(35, 425, "imgs/schedule.png");
     register = new ImageButton(35, 600, "imgs/register.png");
     
-    calibrate = new ImageButton(35, 80, "imgs/calibrate.png");
+    calibrate = new ImageButton(35, 180, "imgs/calibrate.png");
+    home = new ImageButton(35, 80, "imgs/Home.png");
+    dispensed = loadImage("imgs/dispensed.png");
+    dispensed.resize(400, 100);
 }
 
 void draw() {
+    surface.setTitle(str(timer));
     if ( myPort.available() > 0) {  // If data is available,
         val = myPort.readStringUntil('\n');         // read it and store it in val
     } 
@@ -58,6 +70,8 @@ void draw() {
         options.update();
         feedCat.update();
         schedule.update();
+        //resets timer
+        timer = 0;
         //register.update();
     }
     //options screen
@@ -65,25 +79,71 @@ void draw() {
         background(235);
         image(topBar, 0, 0);
         options2.update();
+        home.update();
         calibrate.update();
            
     }
-    else if(state == 3) {
+    //dev screen
+    else if(state == DEV) {
+        background(50);
         image(topBar, 0, 0);
         options.update();
            
     }
-    
+    //home screen with dispensed text
+    else if (state == DISPENSED) {
+        image(topBar, 0, 0);
+        options.update();
+        feedCat.update();
+        schedule.update();
+        image(dispensed, 10, 650);
+        //sets a time after 5 secs back to home
+        timer++;
+        if(timer == 60*5) {
+            state = HOME; 
+        }
+    }
 }
 
 void mousePressed() {
-    if(state == 0 && signIn.mouseOver()) {
+    if(state == START && signIn.mouseOver()) {
         state = HOME;
+        lastState = START;
     }
-    if(state == 1 && options.mouseOver()) {
+    
+    if(state == HOME && options.mouseOver()) {
         state = OPTIONS;
+        lastState = HOME;
     }
-    else if(state == 2 && options2.mouseOver()) {
+    else if(state == OPTIONS && lastState == HOME && options2.mouseOver()) {
         state = HOME;
+        lastState = OPTIONS;
+    }
+    
+    if(state == OPTIONS && calibrate.mouseOver()) {
+        state = DEV;
+        lastState = OPTIONS;
+    }
+    
+    if(state == DEV && options.mouseOver()) {
+        state = OPTIONS;
+        lastState = DEV;
+    }
+    else if(state == OPTIONS && lastState == DEV &&  options2.mouseOver()) {
+        state = DEV;
+        lastState = OPTIONS;
+    }
+    
+    if(state == HOME && feedCat.mouseOver()) {
+        state = DISPENSED;
+        lastState = HOME;
+    }
+    
+    
+    
+    
+    if(state == OPTIONS && home.mouseOver()) {
+        state = HOME;
+        lastState = OPTIONS;
     }
 }
