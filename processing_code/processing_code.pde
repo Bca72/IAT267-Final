@@ -4,7 +4,7 @@ Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
 
 Button doorOpen, doorClose, dispense;
-ImageButton signIn, options, options2;
+ImageButton signIn, options, options2, feedCat, schedule, register;
 PImage logo, signUp, topBar;
 int state;
 
@@ -30,8 +30,11 @@ void setup() {
     signUp = loadImage("imgs/signUp.png");
     
     topBar = loadImage("imgs/topBar.png");
-    options = new ImageButton(width-75, 25, "imgs/more.png");
-    options2 = new ImageButton(width-75, 25, "imgs/more2.png");
+    options = new ImageButton(width-67, 25, "imgs/more.png");
+    options2 = new ImageButton(width-67, 25, "imgs/more2.png");
+    feedCat = new ImageButton(35, 250, "imgs/feed.png");
+    schedule = new ImageButton(35, 425, "imgs/schedule.png");
+    register = new ImageButton(35, 600, "imgs/register.png");
 }
 
 void draw() {
@@ -39,24 +42,33 @@ void draw() {
         val = myPort.readStringUntil('\n');         // read it and store it in val
     } 
     background(color(255));
-       if(state == 0) {
-           background(250);
-           image(logo, 10, 150);
-           signIn.update();
-           image(signUp, 35, 500);
-       }
-       else if(state == 1) {
-           image(topBar, 0, 0);
-           options.update();
-           doorOpen.update();
-           doorClose.update();
-           dispense.update();
-       }
-       else if(state == 2) {
-           image(topBar, 0, 0);
-           options2.update();
+    //start up screen
+    if(state == 0) {
+        background(250);
+        image(logo, 10, 150);
+        signIn.update();
+        image(signUp, 35, 500);
+    }
+    //home screen
+    else if(state == 1) {
+        image(topBar, 0, 0);
+        options.update();
+        feedCat.update();
+        schedule.update();
+        register.update();
+    }
+    else if(state == 2) {
+        background(225);
+        image(topBar, 0, 0);
+        options2.update();
+        
            
-       }
+    }
+    else if(state == 3) {
+        image(topBar, 0, 0);
+        options2.update();
+           
+    }
     
 }
 
