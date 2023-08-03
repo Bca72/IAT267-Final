@@ -26,7 +26,7 @@ int hour, min;
 
 void setup() {
     size(420,800); //smart phone size
-    frameRate(60);
+    frameRate(30);
     state = 0;
     lastState = -1;
     timer = 0;
@@ -81,11 +81,11 @@ void setup() {
 }
 
 void draw() {
-    surface.setTitle(str(timer) + ", " + str(timer2));
+    surface.setTitle(str(timer) + ", " + str(timer2) + ", " + str(frameRate));
     
     if(startTimer){
         timer2++;
-        if(timer2 == 60) {
+        if(timer2 == 30) {
             until--;
             println("feeding in " + str(until));
             timer2 = 0;
@@ -146,7 +146,7 @@ void draw() {
         image(dispensed, 10, 650);
         //sets a time after 5 secs back to home
         timer++;
-        if(timer == 60*5) {
+        if(timer == 30*5) {
             state = HOME; 
         }
     }
@@ -503,11 +503,12 @@ void draw() {
         }
     }
     
+    
     if(send1 == true) {
         myPort.write('1');
         send1 = false;
     }
-    else {
+    else if (send1 == false){
         myPort.write('0');   
     }
 }
@@ -555,8 +556,7 @@ void mousePressed() {
     
         if(state == HOME && feedCat.mouseOver()) {//pressed dispense
             state = DISPENSED;
-            lastState = HOME;
-        
+            lastState = HOME;        
             send1 = true;
         }
     
