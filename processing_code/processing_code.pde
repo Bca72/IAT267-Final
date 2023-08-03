@@ -540,6 +540,23 @@ void mousePressed() {
         lastState = OPTIONS;
     }
     
+    if(state == SCHEDULE && upHour.mouseOver()) { 
+        if(hour != 23){hour++;}
+        else {hour = 0;}
+    }
+    else if(state == SCHEDULE && downHour.mouseOver()) { 
+        if(hour != 0){hour--;}
+        else {hour = 23;}
+    }
+    else if(state == SCHEDULE && upMin.mouseOver()) { 
+        if(min != 59){min++;}
+        else {min = 0;}
+    }
+    else if(state == SCHEDULE && downMin.mouseOver()) { 
+        if(min != 0){min--;}
+        else {min = 59;}
+    }
+    
     
     
     if(state == OPTIONS && home.mouseOver()) {
