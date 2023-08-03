@@ -30,6 +30,7 @@ void setup() {
     // Open whatever port is the one you're using.
     String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
     myPort = new Serial(this, portName, 9600);
+    
     val = "-1";
     
     
@@ -103,6 +104,9 @@ void draw() {
             state = HOME; 
         }
     }
+    
+    
+    myPort.write('0');
 }
 
 void mousePressed() {
@@ -134,9 +138,11 @@ void mousePressed() {
         lastState = OPTIONS;
     }
     
-    if(state == HOME && feedCat.mouseOver()) {
+    if(state == HOME && feedCat.mouseOver()) {//pressed dispense
         state = DISPENSED;
         lastState = HOME;
+        
+        myPort.write('1');
     }
     
     
