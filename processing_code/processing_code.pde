@@ -13,6 +13,7 @@ final int SCHEDULE = 5;
 
 boolean isActive = true;
 boolean startTimer = false;
+boolean send1 = false;
 int timer, timer2, until;
 
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
@@ -90,7 +91,7 @@ void draw() {
             timer2 = 0;
         }
         if(until == 0) {
-            myPort.write('1');
+            send1 = true;
             isActive = true;
             state = DISPENSED;
             startTimer = false;
@@ -502,8 +503,13 @@ void draw() {
         }
     }
     
-    
-    myPort.write('0');
+    if(send1 == true) {
+        myPort.write('1');
+        send1 = false;
+    }
+    else {
+        myPort.write('0');   
+    }
 }
 
 void mousePressed() {
@@ -551,7 +557,7 @@ void mousePressed() {
             state = DISPENSED;
             lastState = HOME;
         
-            myPort.write('1');
+            send1 = true;
         }
     
     
