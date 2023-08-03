@@ -36,9 +36,10 @@ void draw() {
     } 
     background(color(255));
        if(state == 0) {
-           background(245);
+           background(255);
            image(logo, 10, 150);
-           image(signIn, 0, 200);
+           image(signIn, 70, 400);
+           image(signUp, 70, 500);
        }
        else if(state == 1) {
            doorOpen.update();
