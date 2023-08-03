@@ -127,6 +127,6 @@ bool catDetected(int dist) {
 
 void dispenseFood() {
   openDispenserDoor();
-  delay(300);
+  delay(200);
   closeDispenserDoor();
 }
