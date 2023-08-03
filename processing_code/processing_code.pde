@@ -15,9 +15,11 @@ final int SCHEDULE = 5;
 int timer;
 
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
-ImageButton upHour, downHour, upMin, downMin;
-PImage logo, signUp, topBar, dispensed;
+ImageButton upHour, downHour, upMin, downMin, confirmSchedule;
+PImage logo, signUp, topBar, dispensed, colon;
+Pimage hour0, hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9;
 int state, lastState;
+int hour, min;
 
 
 void setup() {
@@ -34,7 +36,8 @@ void setup() {
     myPort = new Serial(this, portName, 9600);
     
     val = "-1";
-    
+    hour = 0;
+    min = 0;
     
     logo = loadImage("imgs/logo.png");
     logo.resize(400, 65);
@@ -57,6 +60,20 @@ void setup() {
     downHour = new ImageButton(5, 400, "imgs/down.png");
     upMin = new ImageButton(210, 250, "imgs/up.png");
     downMin = new ImageButton(210, 400, "imgs/down.png");
+    confirmSchedule = new ImageButton(10, 500, "imgs/sd.png");
+    
+    hour0 = loadImage("imgs/0.png");
+    hour1 = loadImage("imgs/1.png");
+    hour2 = loadImage("imgs/2.png");
+    hour3 = loadImage("imgs/3.png");
+    hour4 = loadImage("imgs/4.png");
+    hour5 = loadImage("imgs/5.png");
+    hour6 = loadImage("imgs/6.png");
+    hour7 = loadImage("imgs/7.png");
+    hour8 = loadImage("imgs/8.png");
+    hour9 = loadImage("imgs/9.png");
+    colon = loadImage("imgs/colon.png");
+    
 }
 
 void draw() {
@@ -119,6 +136,18 @@ void draw() {
         downHour.update();
         upMin.update();
         downMin.update();
+        confirmSchedule.update();
+        image(colon, 200, 270);
+        switch(hour) {
+            case 0:
+                hour1 = loadImage("imgs/0.png");
+                hour2 = loadImage("imgs/0.png");
+                image()
+                break;
+        }
+        switch(min) {
+            
+        }
     }
     
     
@@ -126,9 +155,17 @@ void draw() {
 }
 
 void mousePressed() {
+    
+    
+    
     if(state == START && signIn.mouseOver()) {
         state = HOME;
         lastState = START;
+    }
+    else if(state == HOME && schedule.mouseOver()) {//pressed schedule
+        state = SCHEDULE;
+        lastState = HOME;
+     
     }
     
     if(state == HOME && options.mouseOver()) {
@@ -161,12 +198,7 @@ void mousePressed() {
         myPort.write('1');
     }
     
-    if(state == HOME && schedule.mouseOver()) {//pressed schedule
-        state = SCHEDULE;
-        lastState = HOME;
-        
-        
-    }
+    
     
     if(state == SCHEDULE && options.mouseOver()) {
         state = OPTIONS;
