@@ -3,8 +3,12 @@ import processing.serial.*;
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
 
+//ints for states
+final int START = 0;
+final int HOME = 1;
+final int OPTIONS = 2;
 
-ImageButton signIn, options, options2, feedCat, schedule, register;
+ImageButton signIn, options, options2, feedCat, schedule, register, calibrate;
 PImage logo, signUp, topBar;
 int state;
 
@@ -32,6 +36,8 @@ void setup() {
     feedCat = new ImageButton(35, 250, "imgs/feed.png");
     schedule = new ImageButton(35, 425, "imgs/schedule.png");
     register = new ImageButton(35, 600, "imgs/register.png");
+    
+    calibrate = new ImageButton(35, 80, "imgs/calibrate.png");
 }
 
 void draw() {
@@ -40,30 +46,31 @@ void draw() {
     } 
     background(color(255));
     //start up screen
-    if(state == 0) {
+    if(state == START) {
         background(250);
         image(logo, 10, 150);
         signIn.update();
         image(signUp, 35, 500);
     }
     //home screen
-    else if(state == 1) {
+    else if(state == HOME) {
         image(topBar, 0, 0);
         options.update();
         feedCat.update();
         schedule.update();
         //register.update();
     }
-    else if(state == 2) {
+    //options screen
+    else if(state == OPTIONS) {
         background(235);
         image(topBar, 0, 0);
         options2.update();
-        
+        calibrate.update();
            
     }
     else if(state == 3) {
         image(topBar, 0, 0);
-        options2.update();
+        options.update();
            
     }
     
@@ -71,12 +78,12 @@ void draw() {
 
 void mousePressed() {
     if(state == 0 && signIn.mouseOver()) {
-        state = 1;
+        state = HOME;
     }
     if(state == 1 && options.mouseOver()) {
-        state = 2;
+        state = OPTIONS;
     }
     else if(state == 2 && options2.mouseOver()) {
-        state = 1;
+        state = HOME;
     }
 }
