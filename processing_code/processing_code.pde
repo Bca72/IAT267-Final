@@ -81,6 +81,7 @@ void setup() {
 
 void draw() {
     surface.setTitle(str(timer) + ", " + str(timer2));
+    
     if(startTimer){
         timer2++;
         if(timer2 == 60) {
@@ -96,9 +97,11 @@ void draw() {
             until = 10;
         }
     }
+    
     if ( myPort.available() > 0) {  // If data is available,
         val = myPort.readStringUntil('\n');         // read it and store it in val
-    } 
+    }
+    
     background(color(255));
     //start up screen
     if(state == START) {
@@ -507,84 +510,83 @@ void mousePressed() {
     
     if(isActive) {
     
-    if(state == START && signIn.mouseOver()) {
-        state = HOME;
-        lastState = START;
-    }
-    else if(state == HOME && schedule.mouseOver()) {//pressed schedule
-        state = SCHEDULE;
-        lastState = HOME;
-     
-    }
-    else if(confirmSchedule.mouseOver()) {
-        println("feeding in " + str(until));
-        isActive = false;
-        startTimer = true;
-    }
-    
-    if(state == HOME && options.mouseOver()) {
-        state = OPTIONS;
-        lastState = HOME;
-    }
-    else if(state == OPTIONS && lastState == HOME && options2.mouseOver()) {
-        state = HOME;
-        lastState = OPTIONS;
-    }
-    
-    if(state == OPTIONS && calibrate.mouseOver()) {
-        state = DEV;
-        lastState = OPTIONS;
-    }
-    
-    if(state == DEV && options.mouseOver()) {
-        state = OPTIONS;
-        lastState = DEV;
-    }
-    else if(state == OPTIONS && lastState == DEV &&  options2.mouseOver()) {
-        state = DEV;
-        lastState = OPTIONS;
-    }
-    
-    if(state == HOME && feedCat.mouseOver()) {//pressed dispense
-        state = DISPENSED;
-        lastState = HOME;
+        if(state == START && signIn.mouseOver()) {
+            state = HOME;
+            lastState = START;
+        }
+        else if(state == HOME && schedule.mouseOver()) {//pressed schedule
+            state = SCHEDULE;
+            lastState = HOME; 
+        }
+        else if(confirmSchedule.mouseOver()) {
+            println("feeding in " + str(until));
+            isActive = false;
+            startTimer = true;
+        }
         
-        myPort.write('1');
-    }
+        if(state == HOME && options.mouseOver()) {
+            state = OPTIONS;
+            lastState = HOME;
+        }
+        else if(state == OPTIONS && lastState == HOME && options2.mouseOver()) {
+            state = HOME;
+            lastState = OPTIONS;
+        }
+    
+        if(state == OPTIONS && calibrate.mouseOver()) {
+            state = DEV;
+            lastState = OPTIONS;
+        }
+    
+        if(state == DEV && options.mouseOver()) {
+            state = OPTIONS;
+            lastState = DEV;
+        }
+        else if(state == OPTIONS && lastState == DEV &&  options2.mouseOver()) {
+            state = DEV;
+            lastState = OPTIONS;
+        }
+    
+        if(state == HOME && feedCat.mouseOver()) {//pressed dispense
+            state = DISPENSED;
+            lastState = HOME;
+        
+            myPort.write('1');
+        }
     
     
     
-    if(state == SCHEDULE && options.mouseOver()) {
-        state = OPTIONS;
-        lastState = SCHEDULE;
-    }
-    else if(state == OPTIONS && lastState == SCHEDULE &&  options2.mouseOver()) {
-        state = SCHEDULE;
-        lastState = OPTIONS;
-    }
+        if(state == SCHEDULE && options.mouseOver()) {
+            state = OPTIONS;
+            lastState = SCHEDULE;
+        }
+        else if(state == OPTIONS && lastState == SCHEDULE &&  options2.mouseOver()) {
+            state = SCHEDULE;
+            lastState = OPTIONS;
+        }
     
-    if(state == SCHEDULE && upHour.mouseOver()) { 
-        if(hour != 23){hour++;}
-        else {hour = 0;}
-    }
-    else if(state == SCHEDULE && downHour.mouseOver()) { 
-        if(hour != 0){hour--;}
-        else {hour = 23;}
-    }
-    else if(state == SCHEDULE && upMin.mouseOver()) { 
-        if(min != 59){min++;}
-        else {min = 0;}
-    }
-    else if(state == SCHEDULE && downMin.mouseOver()) { 
-        if(min != 0){min--;}
-        else {min = 59;}
-    }
+        if(state == SCHEDULE && upHour.mouseOver()) { 
+            if(hour != 23){hour++;}
+            else {hour = 0;}
+        }
+        else if(state == SCHEDULE && downHour.mouseOver()) { 
+            if(hour != 0){hour--;}
+            else {hour = 23;}
+        }
+        else if(state == SCHEDULE && upMin.mouseOver()) { 
+            if(min != 59){min++;}
+            else {min = 0;}
+        }
+        else if(state == SCHEDULE && downMin.mouseOver()) { 
+            if(min != 0){min--;}
+            else {min = 59;}
+        }
     
     
     
-    if(state == OPTIONS && home.mouseOver()) {
-        state = HOME;
-        lastState = OPTIONS;
-    }
+        if(state == OPTIONS && home.mouseOver()) {
+            state = HOME;
+            lastState = OPTIONS;
+        }
     }
 }
