@@ -32,6 +32,7 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 // flap door initial variables
 bool flapDoorsAreOpen = false;
+bool catEating = false;
 
 //vars for processing input
 char incomingVal; // char recieved from processing port
@@ -82,16 +83,24 @@ void loop() {
     closeFlapDoors();
   }
 
-  // check cat ID if it is near food bowl
-  // open doors if it is the correct ID
-  if (catDetected(distance) && verifyTag()) {
+  // check if cat is near food bowl
+  if (catDetected(distance)) {
 
-    if(!flapDoorsAreOpen) {
-      openFlapDoors();
-      flapDoorsAreOpen = true;
+    // check if the correct cat is present
+    if(verifyTag()) {
+      catEating = true;
+
+      // open doors if correct cat is present
+      if(!flapDoorsAreOpen) {
+        openFlapDoors();
+        flapDoorsAreOpen = true;
+      }
     }
     
   } else {
+
+    catEating = false;
+
     if(flapDoorsAreOpen) {
       if(timeBefore == 0) {
         timeBefore = timeNow;
