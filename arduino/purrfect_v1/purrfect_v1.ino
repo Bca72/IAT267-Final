@@ -8,7 +8,7 @@ const int DISPENSER_PIN = 3;
 
 // HC-SR04 sensor pins
 const int TRIGGER_PIN = 11;
-const int ECHO_PIN = 12;
+const int ECHO_PIN = 8;
 
 // servos
 Servo leftDoorServo;
@@ -16,17 +16,13 @@ Servo rightDoorServo;
 Servo dispenserServo;
 
 // distance for sensor detection
-const int MAX_DISTANCE = 40;
+const int MAX_DISTANCE = 15;
 
 // NewPing instance
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 // flap door initial variables
 bool flapDoorsAreOpen = false;
-
-// other
-const unsigned long interval = 5000;
-unsigned long previousMillis = 0;
 
 //vars for processing input
 char incomingVal; // char recieved from processing port
@@ -45,38 +41,38 @@ void setup() {
 }
 
 void loop() {
-  //read incoming processing val
-  if(Serial.available()) {
-    incomingVal = Serial.read();
-  }
-  
-
-  // Get the current time
-  unsigned long currentMillis = millis();
-
-  // Check if the specified interval has elapsed
-  if (currentMillis - previousMillis >= interval) {
-
-    openFlapDoors();
-    delay(1500);
-    dispenseFood();
-    delay(2000);
-    closeFlapDoors();
-
-    // Update the previousMillis variable
-    previousMillis = currentMillis;
-  }
 
   // get distance measurement in centimeters
   unsigned int distance = sonar.ping_cm();
 
-  // Serial.println(distance);
+  // read incoming processing value
+  if (Serial.available() > 0) {
+    incomingVal = Serial.read();
+    Serial.println(incomingVal);
+    
+    // for debugging
+    if(incomingVal == '1') {
+      Serial.println("Received '1' and dispensing food.");
+    } else {
+      Serial.println("DID NOT receive '1'.");
+    }
 
-  // // check if cat is near food bowl
+  }
+
+  // if processing sends a 1,
+  // open the doors and dispense food then close doors
+  if(incomingVal == '1') {
+    openFlapDoors();
+    delay(200);
+    dispenseFood();
+    delay(1200);
+    closeFlapDoors();
+  }
+
+  // check if cat is near food bowl
   if (catDetected(distance)) {
 
     if(!flapDoorsAreOpen) {
-      Serial.println("Opening");
       openFlapDoors();
       flapDoorsAreOpen = true;
     }
@@ -84,23 +80,14 @@ void loop() {
   } else {
 
     if(flapDoorsAreOpen) {
-      Serial.println("Closing");
+      delay(2000); // let cat leave before door closes
       closeFlapDoors();
       flapDoorsAreOpen = false;
     }
 
   }
 
-  //if processing sends a 1
-  //open the doors and dispense food then close doors
-  if(incomingVal == '1') {
-    openFlapDoors();
-    dispenseFood();
-    closeFlapDoors();
-  }
-
-  // short delay before looping 
-  delay(100);
+  delay(1000);
 }
 
 void openFlapDoors() {
