@@ -27,6 +27,11 @@ bool flapDoorsAreOpen = false;
 //vars for processing input
 char incomingVal; // char recieved from processing port
 
+//add a delay with millis
+unsigned long timeNow = 0;
+unsigned long timeBefore = 0;
+int interval = 2000;
+
 void setup() {
 
   // initialize serial communciation
@@ -41,6 +46,8 @@ void setup() {
 }
 
 void loop() {
+  timeNow = millis();
+
 
   // get distance measurement in centimeters
   unsigned int distance = sonar.ping_cm();
@@ -78,11 +85,15 @@ void loop() {
     }
     
   } else {
-
     if(flapDoorsAreOpen) {
-      delay(2000); // let cat leave before door closes
-      closeFlapDoors();
-      flapDoorsAreOpen = false;
+      if(timeBefore == 0) {
+        timeBefore = timeNow;
+      }
+      if(timeNow >= timeBefore + interval) {
+        closeFlapDoors();
+        flapDoorsAreOpen = false;
+        timeBefore = 0;
+      }
     }
 
   }
