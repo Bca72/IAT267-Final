@@ -507,14 +507,15 @@ void draw() {
     
     if(send1 == true) {
         myPort.write('1');
-        delay--;
-        if(delay == 0) {
-            send1 = false;   
-        }
+        //delay--;
+        //if(delay == 0) {
+            //send1 = false;   
+        //}
+        send1 = false;  
     }
     else if (send1 == false){
         myPort.write('0');   
-        delay = 11;
+        //delay = 11;
     }
 }
 
