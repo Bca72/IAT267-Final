@@ -15,6 +15,7 @@ boolean isActive = true;
 boolean startTimer = false;
 boolean send1 = false;
 int timer, timer2, until;
+int delay = 11;
 
 ImageButton signIn, options, options2, feedCat, schedule, register, calibrate, home;
 ImageButton upHour, downHour, upMin, downMin, confirmSchedule;
@@ -506,10 +507,14 @@ void draw() {
     
     if(send1 == true) {
         myPort.write('1');
-        send1 = false;
+        delay--;
+        if(delay == 0) {
+            send1 = false;   
+        }
     }
     else if (send1 == false){
         myPort.write('0');   
+        delay = 11;
     }
 }
 
