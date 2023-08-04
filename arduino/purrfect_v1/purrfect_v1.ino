@@ -87,7 +87,7 @@ void loop() {
 
   }
 
-  delay(1000);
+  delay(100);
 }
 
 void openFlapDoors() {
