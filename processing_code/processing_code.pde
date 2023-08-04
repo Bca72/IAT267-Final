@@ -102,6 +102,9 @@ void draw() {
     
     if ( myPort.available() > 0) {  // If data is available,
         val = myPort.readStringUntil('\n');         // read it and store it in val
+        if (val != null) {
+            println(val);
+        }
     }
     
     background(color(255));
