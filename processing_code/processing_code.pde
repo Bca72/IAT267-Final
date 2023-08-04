@@ -14,6 +14,7 @@ final int SCHEDULE = 5;
 boolean isActive = true;
 boolean startTimer = false;
 boolean send1 = false;
+boolean send0 = true;
 int timer, timer2, until;
 int delay = 11;
 
@@ -510,16 +511,14 @@ void draw() {
     
     if(send1 == true) {
         myPort.write('1');
-        //delay--;
-        //if(delay == 0) {
-            //send1 = false;   
-        //}
-        send1 = false;  
+        send1 = false;
+        send0 = true;
     }
-    else if (send1 == false){
+    else if (send1 == false && send0 == true){
         myPort.write('0');   
-        //delay = 11;
+        send0 = false;
     }
+    //else do nothing
 }
 
 void mousePressed() {
